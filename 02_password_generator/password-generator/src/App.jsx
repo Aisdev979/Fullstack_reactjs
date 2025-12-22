@@ -3,10 +3,11 @@ import './App.css';
 
 function App() {
   // State variables with more descriptive names
-  const [passwordLength, setPasswordLength] = useState(0); // Length of the generated password
+  const [passwordLength, setPasswordLength] = useState(8); // Length of the generated password
   const [isSpecialCharactersAllowed, setIsSpecialCharactersAllowed] = useState(false); // Whether special characters are allowed
   const [isNumbersAllowed, setIsNumbersAllowed] = useState(false); // Whether numbers are allowed
   const [generatedPassword, setGeneratedPassword] = useState(''); // The generated password
+  const [copyText, setCopyText] = useState('Copy');
 
   // Function to generate a random password based on the selected settings
   const generateRandomPassword = () => {
@@ -32,6 +33,17 @@ function App() {
     generateRandomPassword(); // Call the password generation function
   }, [isNumbersAllowed, passwordLength, isSpecialCharactersAllowed]); // Dependencies: runs when any of these state variables change
 
+  const copyPassToClip = () => {
+    window.navigator.clipboard.writeText(generatedPassword);
+    setCopyText('Copied');
+  }
+
+  if(copyText === 'Copied') {
+    setTimeout(() => {
+      setCopyText('Copy')
+    }, 2000)
+  }
+
   return (
     <div className="passwordContainer">
       <h1>Password Generator</h1>
@@ -39,8 +51,8 @@ function App() {
         {/* Display the generated password */}
         <div>{generatedPassword}</div>
         {/* Button to manually generate a new password */}
-        <div onClick={generateRandomPassword} className="copyBtn">
-          <p>Generate</p>
+        <div onClick={copyPassToClip} className="copyBtn">
+          <p>{copyText}</p>
         </div>
       </div>
 
