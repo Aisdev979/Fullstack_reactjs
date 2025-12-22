@@ -50,6 +50,7 @@ h1 {
   margin: 0 auto;
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
   gap: 2em;
   color: var(--dark-walnut);
 }
@@ -59,4 +60,10 @@ h1 {
   align-items: center;
   gap: 0.5em;
   color: var(--dark-walnut);
+}
+
+@media screen and (max-width: 750px) {
+  .passwordContainer {
+    width: 90%;
+  }
 }
